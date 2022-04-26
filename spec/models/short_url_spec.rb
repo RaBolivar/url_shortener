@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe ShortUrl, type: :model do
   include ActiveJob::TestHelper
-  
+
   describe "ShortUrl" do
 
     let(:short_url) { ShortUrl.create(full_url: "https://www.beenverified.com/faq/") }
@@ -25,7 +25,7 @@ RSpec.describe ShortUrl, type: :model do
     it "has an invalid url" do
       short_url.full_url = 'javascript:alert("Hello World");'
       expect(short_url).to_not be_valid
-      expect(short_url.errors[:full_url]).to be_include("is not a valid url")
+      expect(short_url.errors[:full_url]).to be_include("Full url is not a valid url")
     end
 
     it "doesn't have a short_code" do
