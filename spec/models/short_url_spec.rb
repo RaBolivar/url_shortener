@@ -1,7 +1,8 @@
 require 'rails_helper'
 
 RSpec.describe ShortUrl, type: :model do
-
+  include ActiveJob::TestHelper
+  
   describe "ShortUrl" do
 
     let(:short_url) { ShortUrl.create(full_url: "https://www.beenverified.com/faq/") }
@@ -49,6 +50,8 @@ RSpec.describe ShortUrl, type: :model do
 
     it "fetches the title" do
       short_url.update_title!
+      perform_enqueued_jobs(only: UpdateTitleJob)
+      short_url.reload
       expect(short_url.title).to eq("Frequently Asked Questions | BeenVerified")
     end
 
