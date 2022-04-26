@@ -16,7 +16,8 @@ RSpec.describe ShortUrlsController, type: :controller do
     it "has a list of the top 100 urls" do
       get :index, format: :json
 
-      expect(parsed_response['urls']).to be_include(short_url.public_attributes)
+      expect(parsed_response['urls'].first).to include({"id" => short_url.id, "click_count" => short_url.click_count,
+        "title" => short_url.title, "full_url" => short_url.full_url})
     end
 
   end
