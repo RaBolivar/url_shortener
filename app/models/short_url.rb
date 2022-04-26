@@ -4,6 +4,8 @@ class ShortUrl < ApplicationRecord
   validates_presence_of :full_url
   validate :validate_full_url
 
+  scope :top_100, -> {  order('click_count desc').limit(100) }
+
   def short_code
     generate_short_code(self.id) if self.id.present?
   end

@@ -4,7 +4,7 @@ class ShortUrlsController < ApplicationController
   skip_before_action :verify_authenticity_token
 
   def index
-    urls = ShortUrl.all
+    urls = ShortUrl.top_100
     respond_to do |format|
       msg = { :urls => urls }
       format.json  { render :json => msg }
